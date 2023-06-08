@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AuthorServiceImpl implements AuthorService{
+public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
 
@@ -51,14 +51,6 @@ public class AuthorServiceImpl implements AuthorService{
         Author author = authorRepository.findAuthorByName(name).orElseThrow();
         return convertEntityToDto(author);
     }
-
-//    private AuthorDto convertEntityToDto(Book book) {
-//        return BookDto.builder()
-//                .id(book.getId())
-//                .genre(book.getGenre().getName())
-//                .name(book.getName())
-//                .build();
-//    }
 
     @Override
     public AuthorDto getByNameV2(String name) {

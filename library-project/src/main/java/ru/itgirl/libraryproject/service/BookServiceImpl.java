@@ -16,6 +16,7 @@ import ru.itgirl.libraryproject.repository.BookRepository;
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
+
     @Override
     public BookDto getByNameV1(String name) {
         Book book = bookRepository.findBookByName(name).orElseThrow();
