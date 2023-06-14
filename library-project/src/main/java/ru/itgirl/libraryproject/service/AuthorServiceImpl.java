@@ -15,6 +15,7 @@ import ru.itgirl.libraryproject.model.Author;
 import ru.itgirl.libraryproject.repository.AuthorRepository;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,25 +29,6 @@ public class AuthorServiceImpl implements AuthorService {
         AuthorDto authorDto = convertEntityToDto(author);
         return authorDto;
     }
-
-//    private AuthorDto convertEntityToDto(Author author) {
-//        List<BookDto> bookDtoList = author.getBooks().stream()
-//                .map(book -> BookDto.builder()
-//                        .genre(book.getGenre().getName())
-//                        .name(book.getName())
-//                        .id(book.getId())
-//                        .build())
-//                .toList();
-//
-//        AuthorDto authorDto = AuthorDto.builder()
-//                .id(author.getId())
-//                .name(author.getName())
-//                .surname(author.getSurname())
-//                .books(bookDtoList)
-//                .build();
-//
-//        return authorDto;
-//    }
 
     @Override
     public AuthorDto getByNameV1(String name) {
@@ -121,5 +103,11 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void deleteAuthor(Long id) {
         authorRepository.deleteById(id);
+    }
+
+    @Override
+    public List<AuthorDto> getAllAuthors() {
+        List<Author> authors = authorRepository.findAll();
+        return authors.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 }

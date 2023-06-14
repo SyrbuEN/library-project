@@ -6,7 +6,6 @@ import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 import ru.itgirl.libraryproject.dto.*;
 import ru.itgirl.libraryproject.model.Book;
@@ -15,7 +14,7 @@ import ru.itgirl.libraryproject.repository.GenreRepository;
 import ru.itgirl.libraryproject.repository.BookRepository;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -84,5 +83,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookDto> getAllBooks() {
+        List<Book> books = bookRepository.findAll();
+        return books.stream().map(this::convertEntityToDto).collect(Collectors.toList());
     }
 }
