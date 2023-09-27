@@ -1,4 +1,4 @@
-package ru.itgirl.libraryproject.service;
+package ru.itgirl.libraryproject.service.impl;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -14,6 +14,7 @@ import ru.itgirl.libraryproject.dto.AuthorUpdateDto;
 import ru.itgirl.libraryproject.dto.BookDto;
 import ru.itgirl.libraryproject.model.Author;
 import ru.itgirl.libraryproject.repository.AuthorRepository;
+import ru.itgirl.libraryproject.service.AuthorService;
 
 import java.util.List;
 import java.util.NoSuchElementException;

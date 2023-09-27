@@ -1,4 +1,4 @@
-package ru.itgirl.libraryproject.service;
+package ru.itgirl.libraryproject.service.impl;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -13,6 +13,7 @@ import ru.itgirl.libraryproject.model.Book;
 import ru.itgirl.libraryproject.model.Genre;
 import ru.itgirl.libraryproject.repository.GenreRepository;
 import ru.itgirl.libraryproject.repository.BookRepository;
+import ru.itgirl.libraryproject.service.BookService;
 
 import java.util.List;
 import java.util.stream.Collectors;

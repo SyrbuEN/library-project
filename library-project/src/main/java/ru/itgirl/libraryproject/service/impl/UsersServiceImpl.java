@@ -1,17 +1,18 @@
-package ru.itgirl.libraryproject.service;
+package ru.itgirl.libraryproject.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.itgirl.libraryproject.dto.UsersDto;
 import ru.itgirl.libraryproject.model.Users;
 import ru.itgirl.libraryproject.repository.UsersRepository;
+import ru.itgirl.libraryproject.service.UsersService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class UsersServiceImpl implements UsersService{
+public class UsersServiceImpl implements UsersService {
 
     private final UsersRepository usersRepository;
 

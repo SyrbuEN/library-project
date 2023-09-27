@@ -1,4 +1,4 @@
-package ru.itgirl.libraryproject.service;
+package ru.itgirl.libraryproject.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +8,7 @@ import ru.itgirl.libraryproject.model.Author;
 import ru.itgirl.libraryproject.model.Genre;
 import ru.itgirl.libraryproject.repository.AuthorRepository;
 import ru.itgirl.libraryproject.repository.GenreRepository;
+import ru.itgirl.libraryproject.service.GenreService;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -19,7 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GenreServiceImpl implements GenreService{
+public class GenreServiceImpl implements GenreService {
     private final GenreRepository genreRepository;
     private final AuthorRepository authorRepository;
 
