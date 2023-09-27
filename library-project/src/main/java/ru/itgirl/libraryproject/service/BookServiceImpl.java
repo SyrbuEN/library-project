@@ -5,6 +5,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import ru.itgirl.libraryproject.dto.*;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BookServiceImpl implements BookService {
 
     private final BookRepository bookRepository;
@@ -25,7 +27,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getByNameV1(String name) {
+        log.info("Try to find book by name {}", name);
         Book book = bookRepository.findBookByName(name).orElseThrow();
+        log.info("Book: {} - {}", name, book.getGenre().getName());
         return convertEntityToDto(book);
     }
 
@@ -39,7 +43,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto getByNameV2(String name) {
+        log.info("Try to find book by name {}", name);
         Book book = bookRepository.findBookByNameBySql(name).orElseThrow();
+        log.info("Book: {} - {}", name, book.getGenre().getName());
         return convertEntityToDto(book);
     }
 
@@ -51,7 +57,9 @@ public class BookServiceImpl implements BookService {
                 return criteriaBuilder.equal(root.get("name"), name);
             }
         });
+        log.info("Try to find book by name {}", name);
         Book book = bookRepository.findOne(specification).orElseThrow();
+        log.info("Book: {} - {}", name, book.getGenre().getName());
         return convertEntityToDto(book);
     }
 
@@ -59,6 +67,7 @@ public class BookServiceImpl implements BookService {
     public BookDto createBook(BookCreateDto bookCreateDto) {
         Book book = bookRepository.save(convertDtoToEntity(bookCreateDto));
         BookDto bookDto = convertEntityToDto(book);
+        log.info("Book {} has been create ", bookDto);
         return bookDto;
     }
 
@@ -77,17 +86,24 @@ public class BookServiceImpl implements BookService {
         book.setGenre(genreRepository.findById(bookUpdateDto.getGenre()).orElseThrow());
         Book savedBook = bookRepository.save(book);
         BookDto bookDto = convertEntityToDto(savedBook);
+        log.info("Book {} has been update ", bookDto);
         return bookDto;
     }
 
     @Override
     public void deleteBook(Long id) {
+        log.info("Try to delete book by id {} ", id);
         bookRepository.deleteById(id);
     }
 
     @Override
     public List<BookDto> getAllBooks() {
+        log.info("Try to find all books");
         List<Book> books = bookRepository.findAll();
-        return books.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+        List<BookDto> booksDto= books.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+        for (BookDto book: booksDto) {
+            log.info("Book: {}", book);
+        }
+    return booksDto;
     }
 }
